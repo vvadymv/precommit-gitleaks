@@ -10,9 +10,9 @@ Follow the steps below to set up the pre-commit hook in your git repository.
 
 1. Copy the pre-commit hook script 
 
-   Downlopad this repository and copy script `check-secrets.sh` to your local git repository's hooks as `pre-commit` directory, make sure the script executable:
+   Downlopad this repository and copy script `pre-commit` to your local git repository's hooks, make sure the script executable:
    ```
-   cp path-to-downloaded-repo/check-secrets.sh .git/hooks/pre-commit
+   cp path-to-downloaded-repo/pre-commit .git/hooks/
    chmod +x .git/hooks/pre-commit
    ```
 
