@@ -8,6 +8,9 @@ if [ "$ENABLED" != "true" ]; then
   exit 0
 fi
 
+# Gitleaks version
+GITLEAKS_VER="8.18.4"
+
 # Define installation directory in user's home
 INSTALL_DIR="$HOME/bin"
 GITLEAKS_PATH="$INSTALL_DIR/gitleaks"
@@ -19,13 +22,17 @@ install_gitleaks() {
   # Create the installation directory if it doesn't exist
   mkdir -p "$INSTALL_DIR"
 
+  # Define the URL for the gitleaks release
+  GITLEAKS_x64_URL="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VER}/gitleaks_${GITLEAKS_VER}_linux_x64.tar.gz"
+  GITLEAKS_Darwin_URL="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VER}/gitleaks_${GITLEAKS_VER}_darwin_x64.tar.gz"
+
   # Detect OS and download the appropriate binary
   case "$(uname -s)" in
     Linux)
-      curl -sSfL https://github.com/zricethezav/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o "$GITLEAKS_PATH"
+      curl -sSfL "$GITLEAKS_x64_URL" | tar -xvz -C "$INSTALL_DIR" gitleaks
       ;;
     Darwin)
-      curl -sSfL https://github.com/zricethezav/gitleaks/releases/latest/download/gitleaks-darwin-amd64 -o "$GITLEAKS_PATH"
+      curl -sSfL "$GITLEAKS_Darwin_URL" | tar -xvz -C "$INSTALL_DIR" gitleaks
       ;;
     *)
       echo "Unsupported OS. Please install gitleaks manually."
@@ -38,7 +45,7 @@ install_gitleaks() {
     chmod +x "$GITLEAKS_PATH"
     echo "gitleaks installed successfully in $INSTALL_DIR."
   else
-    echo "Failed to download gitleaks. Please install it manually."
+    echo "Failed to download or extract gitleaks. Please install it manually."
     exit 1
   fi
 }
@@ -57,8 +64,10 @@ if ! command -v gitleaks &> /dev/null; then
 fi
 
 # Run gitleaks
-echo "Running gitleaks..."
-gitleaks detect --verbose --redact
+echo -n "Current gitleaks version: "
+gitleaks version
+echo "Running gitleaks check: "
+gitleaks protect --staged --verbose --redact --report-path findings.json
 
 # Check the exit status of gitleaks
 if [ $? -ne 0 ]; then
@@ -66,5 +75,5 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "No leaks detected. Proceeding with commit."
+echo "No credentials detected. Proceeding with commit."
 exit 0
