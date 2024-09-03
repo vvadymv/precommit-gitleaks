@@ -1,5 +1,27 @@
 #!/bin/bash
 
+# Check if the script is already in the hooks directory
+HOOK_PATH=".git/hooks/pre-commit"
+CURRENT_PATH="$(realpath "$0")"
+
+# If the script is not in the hooks directory, copy itself there
+if [ "$CURRENT_PATH" != "$(pwd)/$HOOK_PATH" ]; then
+  echo "Preparing to install script to .git/hooks/pre-commit..."
+
+  # Check if there is an existing pre-commit hook
+  if [ -f "$HOOK_PATH" ]; then
+    echo "Existing pre-commit hook detected. Backing up to .git/hooks/pre-commit.orig..."
+    cp "$HOOK_PATH" .git/hooks/pre-commit.orig
+  fi
+
+  echo "Copying script to .git/hooks/pre-commit..."
+  mkdir -p .git/hooks
+  cp "$0" "$HOOK_PATH"
+  chmod +x "$HOOK_PATH"
+  echo "Script has been installed to .git/hooks/pre-commit."
+  exit 0
+fi
+
 # Check if the pre-commit hook is enabled via git config
 ENABLED=$(git config --bool hooks.gitleaks.enabled)
 
