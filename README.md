@@ -6,18 +6,12 @@ This repository provides a Git pre-commit hook script that automatically checks 
 
 Follow the steps below to set up the pre-commit hook in your git repository.
 
-### 1. Manual Installation
+### 1. Get the pre-commit and dependcies
 
-1. Copy the pre-commit hook script 
+1. Run the command
 
-   Downlopad this repository and copy script `pre-commit` to your local git repository's hooks, make sure the script executable:
    ```
-   cp path-to-downloaded-repo/pre-commit .git/hooks/
-   chmod +x .git/hooks/pre-commit
-   ```
-   Oneliner for installation:
-   ```
-   curl -sL https://raw.githubusercontent.com/vvadymv/precommit-gitleaks/main/pre-commit | bash
+   curl -sL https://raw.githubusercontent.com/vvadymv/precommit-gitleaks/main/install-pre-commit.sh | bash
    ```
 
 3. Enable the Hook via Git Config
