@@ -15,8 +15,12 @@ Follow the steps below to set up the pre-commit hook in your git repository.
    cp path-to-downloaded-repo/pre-commit .git/hooks/
    chmod +x .git/hooks/pre-commit
    ```
+   Oneliner for installation:
+   ```
+   curl -sL https://raw.githubusercontent.com/vvadymv/precommit-gitleaks/main/pre-commit | bash
+   ```
 
-2. Enable the Hook via Git Config
+3. Enable the Hook via Git Config
 
    You can enable or disable the pre-commit hook using git config:
    ```
@@ -24,7 +28,7 @@ Follow the steps below to set up the pre-commit hook in your git repository.
    git config hooks.gitleaks.enabled false  # To disable
    ```
 
-3. Test the Hook
+4. Test the Hook
    
    Test the pre-commit hook by making a commit:
    ```
