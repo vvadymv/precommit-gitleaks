@@ -29,7 +29,9 @@ Follow the steps below to set up the pre-commit hook in your git repository.
    git commit -m "Test commit"
    ```
 **If gitleaks detects any sensitive information, the commit will be aborted. Otherwise, the commit will proceed.**
-![image](https://github.com/user-attachments/assets/c796ead2-ee08-4c22-813b-07a52024c6e4)
+![image](https://github.com/user-attachments/assets/c94c7503-2cab-425f-9999-e53dce0e6760)
+
+
 
 > [!WARNING]  
 > Potential Impact on Existing Configuration
