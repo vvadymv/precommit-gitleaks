@@ -45,7 +45,7 @@ fi
 
 # Run gitleaks
 echo "Running gitleaks..."
-gitleaks protect --staged --verbose --redact --report-path findings.json
+$GITLEAKS_PATH protect --staged --verbose --redact --report-path findings.json
 
 # Check the exit status of gitleaks
 if [ $? -ne 0 ]; then
